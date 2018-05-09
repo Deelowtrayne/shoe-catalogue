@@ -10,7 +10,25 @@ html, body {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Lato', Helvetica, sans-serif;
+}
+
+input {
+  padding: 6px;
+  margin-bottom: 6px;
+}
+
+select {
+  padding: 8px;
+  width: 80%;
+  margin-bottom: 1rem;
+}
+
+
+.clearfix::before, .clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .container {
@@ -31,6 +49,76 @@ body {
 }
 
 .main {
-  height: 400px;
   border: 1px #ccc solid;
+}
+
+.display-area {
+  float: left;
+  padding: 1.5rem;
+  height: 100%;
+  width: 50%;
+
+  border-right: 2px #ccc solid; 
+}
+
+.display-area:last-of-type {
+  border: none;
+}
+
+.display-area h2 {
+  /* font-size: 1rem; */
+}
+
+.display-area div {
+  text-align: center;
+}
+
+.open-add-section {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.row:first-of-type select {
+  width: 40%;
+}
+
+.shoe {
+  position: relative;
+  font-weight: lighter;
+  margin-top: 10vh;
+  padding: 6px 1rem;
+  box-shadow: 0px 1px 4px #ccc;
+}
+.shoe table {
+  width: 80%;
+  float: left;
+}
+.shoe tr :first-child {
+  width: 10%;
+}
+
+.item-image {
+  background: url('../img/all-star.jpg') center center;
+  background-size: cover;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  right: 1rem; bottom: 6px;
+}
+
+.add-shoe{
+  z-index: 1000;
+  padding: 1rem;
+  display: none;
+  background: #ccc;
+  transition: height 5s;
+}
+
+.add-shoe button {
+  padding: 6px;
+  min-width: 4rem;
+}
+
+.show {
+  display: block;
 }

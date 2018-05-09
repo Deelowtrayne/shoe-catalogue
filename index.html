@@ -12,9 +12,165 @@
         <div class="topbar">
             <h1>Shoe Catalogue App<br><small>A simple javascript shoe catalogue application</small></h1>
         </div>
-        <div class="main">
-            
+
+        <div class="add-shoe">
+            <input type="text" class="shoe-brand" placeholder="Brand name">
+            <input type="colour" class="shoe-colour" placeholder="Shoe colour">
+            <input type="number" class="shoe-size" placeholder="Shoe size">
+            <input type="number" class="shoe-price" placeholder="Shoe price">
+            <input type="number" class="shoe-qty" placeholder="In stock">
+            <button type="submit" class="add-button">Add </button>
+        </div>
+
+        <div class="main clearfix">
+            <section class="display-area">
+                <h2>Choose a product</h2>
+                Filter By:<br><br>
+                <select name="brand" id="brand-select">
+                    <option value="">Choose brand</option>
+                    <option value="nike">nike</option>
+                    <option value="adidas">adidas</option>
+                    <option value="puma">puma</option>
+                    <option value="reebok">Reebok</option>
+                </select>
+                <select name="brand" id="colour-select">
+                    <option value="">Choose colour</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                    <option value="brown">Brown</option>
+                    <option value="blue">Blue</option>
+                </select>
+                <select name="size" id="size-select">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <div><button class="open-add-section">Add new item</button></div>
+            </section>
+            <section class="display-area">
+                <div class="shoe clearfix">
+                    <table>
+                        <tr>
+                            <td><b>Brand:</b></td>
+                            <td>Studio.W</td> 
+                        </tr>
+                        <tr>
+                            <td>Colour:</b></td>
+                            <td><b>Black</td>
+                        </tr>
+                        <tr>
+                            <td><b>Size:</b></td>
+                            <td>6.5</td>
+                        </tr>
+                        <tr>
+                            <td><b>Price:</b></td>
+                            <td>R1 999.00</td>
+                        </tr>
+                        <tr>
+                            <td><b>Qty:</b></td>
+                            <td>7</td>
+                        </tr>
+                    </table>
+                    <!-- // Buy button -->
+                    <aside class="item-image"></aside>
+                    <!-- <button>Buy</button> -->
+                </div> 
+                
+                <script type="text/x-template" class="example">
+                    {{#each}}
+                    
+                    {{/each}}
+                </script>
+
+            </section>
         </div>
     </div>
+
+<script>
+
+function ShoeCatalogue() {
+    var shoe_colour = '';
+    var shoe_brand = '';
+    var shoe_size = '';
+    var shoe_price = '';
+    var shoe_qty = 0;
+    var shoeMap = {};
+
+    function getBrand(value) {
+        if (value !== undefined)
+            shoe_brand = value;
+        return shoe_brand;
+    }
+
+    function getSize(value) {
+        if (value !== undefined)
+            shoe_size = value;
+        return shoe_size;
+    }
+
+    function getColour(value) {
+        if (value !== undefined)
+            shoe_colour = value;
+        return shoe_colour;
+    }
+
+    function addNew(brand, color, size, price, qty) {
+        shoe_brand = brand;
+        shoe_colour= color;
+        shoe_size = size;
+        shoe_price = price;
+
+        shoeMap[shoe_brand] = {
+            colour: shoe_colour,
+            size: shoe_size,
+            price: shoe_price,
+            qty: shoe_qty
+        }
+    }
+
+    function displayShoes() {
+        if (shoeMap.length > 1) {
+            return "<h1>Nothing to display</h1>";
+        }
+
+        for (shoe in shoeMap) {
+            
+        }
+    }
+
+    return {
+        new: addNew,
+        display: displayShoes
+    };
+
+    /*
+{
+    brand: {
+        img: "",
+        colour: "",
+        size: "",
+        qty: ""
+    }
+} */
+}
+var shoeAdd = document.querySelector('.add-shoe');
+var btnAddItem = document.querySelector('.add-button');
+var btnAddSection = document.querySelector('.open-add-section');
+var brandElem = document.querySelector('.shoe-brand');
+var colourElem = document.querySelector('.shoe-colour');
+var sizeElem = document.querySelector('.shoe-size');
+var priceElem = document.querySelector('.shoe-price');
+var qtyElem = document.querySelector('.shoe-qty');
+
+// instance
+var catalogue = ShoeCatalogue();
+
+btnAddSection.addEventListener('click', function(){
+    shoeAdd.classList.toggle('show');
+})
+
+</script>
 </body>
 </html>
+
