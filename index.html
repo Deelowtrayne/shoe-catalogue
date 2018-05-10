@@ -49,111 +49,47 @@
                 <div><button class="open-add-section">Add new item</button></div>
             </section>
             <section class="display-area">
-                <div class="shoe clearfix">
-                    <table>
-                        <tr>
-                            <td><b>Brand:</b></td>
-                            <td>Studio.W</td> 
-                        </tr>
-                        <tr>
-                            <td>Colour:</b></td>
-                            <td><b>Black</td>
-                        </tr>
-                        <tr>
-                            <td><b>Size:</b></td>
-                            <td>6.5</td>
-                        </tr>
-                        <tr>
-                            <td><b>Price:</b></td>
-                            <td>R1 999.00</td>
-                        </tr>
-                        <tr>
-                            <td><b>Qty:</b></td>
-                            <td>7</td>
-                        </tr>
-                    </table>
-                    <!-- // Buy button -->
-                    <aside class="item-image"></aside>
-                    <!-- <button>Buy</button> -->
-                </div> 
-                
+ 
                 <script type="text/x-template" class="example">
                     {{#each}}
-                    
+                        <div class="shoe clearfix">
+                            <table>
+                                <tr>
+                                    <td><b>Brand:</b></td>
+                                    <td>Studio.W</td> 
+                                </tr>
+                                <tr>
+                                    <td>Colour:</b></td>
+                                    <td><b>Black</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Size:</b></td>
+                                    <td>6.5</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Price:</b></td>
+                                    <td>R1 999.00</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Qty:</b></td>
+                                    <td>7</td>
+                                </tr>
+                            </table>
+                            <!-- // Buy button -->
+                            <aside class="item-image"></aside>
+                            <!-- <button>Buy</button> -->
+                        </div>
                     {{/each}}
                 </script>
 
             </section>
         </div>
     </div>
+    <script src="js/shoe-catalogue.factory.js"></script>
 
 <script>
 
-function ShoeCatalogue() {
-    var shoe_colour = '';
-    var shoe_brand = '';
-    var shoe_size = '';
-    var shoe_price = '';
-    var shoe_qty = 0;
-    var shoeMap = {};
 
-    function getBrand(value) {
-        if (value !== undefined)
-            shoe_brand = value;
-        return shoe_brand;
-    }
-
-    function getSize(value) {
-        if (value !== undefined)
-            shoe_size = value;
-        return shoe_size;
-    }
-
-    function getColour(value) {
-        if (value !== undefined)
-            shoe_colour = value;
-        return shoe_colour;
-    }
-
-    function addNew(brand, color, size, price, qty) {
-        shoe_brand = brand;
-        shoe_colour= color;
-        shoe_size = size;
-        shoe_price = price;
-
-        shoeMap[shoe_brand] = {
-            colour: shoe_colour,
-            size: shoe_size,
-            price: shoe_price,
-            qty: shoe_qty
-        }
-    }
-
-    function displayShoes() {
-        if (shoeMap.length > 1) {
-            return "<h1>Nothing to display</h1>";
-        }
-
-        for (shoe in shoeMap) {
-            
-        }
-    }
-
-    return {
-        new: addNew,
-        display: displayShoes
-    };
-
-    /*
-{
-    brand: {
-        img: "",
-        colour: "",
-        size: "",
-        qty: ""
-    }
-} */
-}
 var shoeAdd = document.querySelector('.add-shoe');
 var btnAddItem = document.querySelector('.add-button');
 var btnAddSection = document.querySelector('.open-add-section');
@@ -163,12 +99,27 @@ var sizeElem = document.querySelector('.shoe-size');
 var priceElem = document.querySelector('.shoe-price');
 var qtyElem = document.querySelector('.shoe-qty');
 
+
+// get stored data
+var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStorage.getItem('AVAILABLE_SHOES')) : [];
 // instance
-var catalogue = ShoeCatalogue();
+var shoes = ShoeCatalogue(storedShoes);
 
 btnAddSection.addEventListener('click', function(){
     shoeAdd.classList.toggle('show');
 })
+
+btnAddItem.addEventListener('click', function() {
+    shoes.new(
+        brandElem.value,
+        colourElem.value,
+        sizeElem.value,
+        priceElem.value,
+        qtyElem.value
+    );
+
+    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map())); 
+});
 
 </script>
 </body>
