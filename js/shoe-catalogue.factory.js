@@ -5,7 +5,13 @@ function ShoeCatalogue(storedData, storedTrolley) {
     var shoe_price = '';
     var shoe_qty = 0;
     var trolley = [];
-    var shoeMap = storedData || [];
+    var shoeMap = [];
+
+    if (storedData) {
+        for (let i = 0; i < storedData.length; i++) {
+            shoeMap.push(storedData[i]);
+        }
+    }
 
     function getBrand(value) {
         if (value !== undefined)
@@ -17,7 +23,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
         if (value !== undefined)
             shoe_size = value;
         return shoe_size;
-    }
+    }      
 
     function getQty(value) {
         if (value !== undefined)
@@ -29,6 +35,35 @@ function ShoeCatalogue(storedData, storedTrolley) {
         if (value !== undefined)
             shoe_colour = value;
         return shoe_colour;
+    }
+
+    function filterBy(passed_brand, passed_color, passed_size) {
+        let result = [];
+
+        // if (passed_brand !== undefined) {
+        //     result = _.filter(shoeMap, {'brand':passed_brand});
+        //     //result = shoeMap.filter(current => (current.brand==passed_brand));
+        // }
+        
+        // if (passed_brand !== undefined && passed_color !== undefined) {
+        //     result = _.filter(shoeMap, {'brand':passed_brand}, {'colour':passed_color});
+        //     // result = shoeMap.filter( current => (
+        //     //     current.brand==passed_brand && 
+        //     //     current.colour==passed_color
+        //     // ));
+        // }
+        
+        if (passed_brand !== undefined && passed_color !== undefined && passed_size !== undefined) {
+            result = _.filter(shoeMap, {brand:passed_brand}, {colour:passed_color}, {size:passed_size});
+            // result = shoeMap.filter( current => (
+            //     current.brand==passed_brand && 
+            //     current.colour==passed_color && 
+            //     current.size==passed_size
+            // ));
+        }
+        
+        console.log(result);
+        
     }
 
     function addNew(brand, color, size, price, qty) {
@@ -64,7 +99,10 @@ function ShoeCatalogue(storedData, storedTrolley) {
 
     return {
         new: addNew,
+        filter: filterBy,
         display: displayShoes,
         map: getShoeMap
     };
 }
+
+

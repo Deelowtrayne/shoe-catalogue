@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shoe-catalofue | A Javascript application for a simple shoe ordering system</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -26,21 +27,22 @@
             <section class="display-area">
                 <h2>Choose a product</h2>
                 Filter By:<br><br>
-                <select name="brand" id="brand-select">
+                <select name="brand" class="brand-select">
                     <option value="">Choose brand</option>
-                    <option value="nike">nike</option>
-                    <option value="adidas">adidas</option>
+                    <option value="Nike">nike</option>
+                    <option value="Adidas">adidas</option>
                     <option value="puma">puma</option>
                     <option value="reebok">Reebok</option>
                 </select>
-                <select name="brand" id="colour-select">
+                <select name="brand" class="colour-select">
                     <option value="">Choose colour</option>
-                    <option value="black">Black</option>
-                    <option value="white">White</option>
-                    <option value="brown">Brown</option>
-                    <option value="blue">Blue</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Blue">Blue</option>
                 </select>
-                <select name="size" id="size-select">
+                <select name="size" class="size-select">
+                    <option value="">Choose size</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
@@ -99,6 +101,10 @@ var sizeElem = document.querySelector('.shoe-size');
 var priceElem = document.querySelector('.shoe-price');
 var qtyElem = document.querySelector('.shoe-qty');
 
+// selects / filter
+var brandSelect = document.querySelector('.brand-select');
+var colourSelect = document.querySelector('.colour-select');
+var sizeSelect = document.querySelector('.size-select');
 
 // get stored data
 var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStorage.getItem('AVAILABLE_SHOES')) : [];
@@ -117,8 +123,28 @@ btnAddItem.addEventListener('click', function() {
         priceElem.value,
         qtyElem.value
     );
+    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
+});
+/* 
+sizeSelect.addEventListener('change', function(){
+    let filterBrand = brandSelect.value;
+    let filterColour = colourSelect.value;
+    let filterSize = sizeSelect.value;
+    shoes.filter(filterBrand);
+});
 
-    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map())); 
+sizeSelect.addEventListener('change', function(){
+    let filterBrand = brandSelect.value;
+    let filterColour = colourSelect.value;
+    let filterSize = sizeSelect.value;
+    shoes.filter(filterBrand);
+}); */
+
+sizeSelect.addEventListener('change', function(){
+    let filterBrand = brandSelect.value;
+    let filterColour = colourSelect.value;
+    let filterSize = sizeSelect.value;
+    shoes.filter(filterBrand, filterColour, filterSize);
 });
 
 </script>
