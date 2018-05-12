@@ -125,26 +125,26 @@ btnAddItem.addEventListener('click', function() {
     );
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
 });
-/* 
-sizeSelect.addEventListener('change', function(){
+
+brandSelect.addEventListener('change', function(){
     let filterBrand = brandSelect.value;
     let filterColour = colourSelect.value;
     let filterSize = sizeSelect.value;
-    shoes.filter(filterBrand);
+    shoes.brandFilter(filterBrand, filterColour, filterSize);
 });
 
-sizeSelect.addEventListener('change', function(){
+colourSelect.addEventListener('change', function(){
     let filterBrand = brandSelect.value;
     let filterColour = colourSelect.value;
     let filterSize = sizeSelect.value;
-    shoes.filter(filterBrand);
-}); */
+    shoes.colorFilter(filterBrand, filterColour, filterSize);
+}); 
 
 sizeSelect.addEventListener('change', function(){
     let filterBrand = brandSelect.value;
     let filterColour = colourSelect.value;
     let filterSize = sizeSelect.value;
-    shoes.filter(filterBrand, filterColour, filterSize);
+    shoes.sizeFilter(filterBrand, filterColour, filterSize);
 });
 
 </script>
