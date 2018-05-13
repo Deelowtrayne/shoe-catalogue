@@ -29,10 +29,10 @@
                 Filter By:<br><br>
                 <select name="brand" class="brand-select">
                     <option value="">Choose brand</option>
-                    <option value="Nike">nike</option>
-                    <option value="Adidas">adidas</option>
-                    <option value="puma">puma</option>
-                    <option value="reebok">Reebok</option>
+                    <option value="Nike">Nike</option>
+                    <option value="Adidas">Adidas</option>
+                    <option value="Puma">Puma</option>
+                    <option value="Reebok">Reebok</option>
                 </select>
                 <select name="brand" class="colour-select">
                     <option value="">Choose colour</option>
@@ -111,6 +111,11 @@ var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStor
 // instance
 var shoes = ShoeCatalogue(storedShoes);
 
+//globals
+var filterBrand = '';
+var filterColour = '';
+var filterSize = '';
+
 btnAddSection.addEventListener('click', function(){
     shoeAdd.classList.toggle('show');
 })
@@ -127,24 +132,24 @@ btnAddItem.addEventListener('click', function() {
 });
 
 brandSelect.addEventListener('change', function(){
-    let filterBrand = brandSelect.value;
-    let filterColour = colourSelect.value;
-    let filterSize = sizeSelect.value;
+    filterBrand = brandSelect.value;
+    filterColour = colourSelect.value;
+    filterSize = sizeSelect.value;
     shoes.brandFilter(filterBrand, filterColour, filterSize);
 });
 
 colourSelect.addEventListener('change', function(){
-    let filterBrand = brandSelect.value;
-    let filterColour = colourSelect.value;
-    let filterSize = sizeSelect.value;
-    shoes.colorFilter(filterBrand, filterColour, filterSize);
+    filterBrand = brandSelect.value;
+    filterColour = colourSelect.value;
+    filterSize = sizeSelect.value;
+    shoes.colorFilter(filterColour, filterBrand, filterSize);
 }); 
 
 sizeSelect.addEventListener('change', function(){
-    let filterBrand = brandSelect.value;
-    let filterColour = colourSelect.value;
-    let filterSize = sizeSelect.value;
-    shoes.sizeFilter(filterBrand, filterColour, filterSize);
+    filterBrand = brandSelect.value;
+    filterColour = colourSelect.value;
+    filterSize = sizeSelect.value;
+    shoes.sizeFilter( filterSize, filterBrand, filterColour);
 });
 
 </script>
