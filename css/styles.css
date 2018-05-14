@@ -56,13 +56,15 @@ select {
   float: left;
   padding: 1.5rem;
   height: 100%;
+  max-height: 400px;
   width: 50%;
-
+  display: table-cell;
   border-right: 2px #ccc solid; 
 }
 
 .display-area:last-of-type {
   border: none;
+  overflow-x: scroll;
 }
 
 .display-area h2 {
@@ -85,16 +87,17 @@ select {
 .shoe {
   position: relative;
   font-weight: lighter;
-  margin-top: 10vh;
+  font-size: small;
   padding: 6px 1rem;
   box-shadow: 0px 1px 4px #ccc;
 }
 .shoe table {
   width: 80%;
   float: left;
+  text-align: left;
 }
-.shoe tr :first-child {
-  width: 10%;
+.shoe tr td{
+  padding-right: 1rem;
 }
 
 .item-image {

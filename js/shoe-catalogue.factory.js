@@ -1,9 +1,5 @@
 function ShoeCatalogue(storedData, storedTrolley) {
-    var shoe_colour = '';
-    var shoe_brand = '';
-    var shoe_size = '';
-    var shoe_price = '';
-    var shoe_qty = 0;
+
     var trolley = [];
     var shoeMap = [];
 
@@ -13,158 +9,48 @@ function ShoeCatalogue(storedData, storedTrolley) {
         }
     }
 
-    function getBrand(value) {
-        if (value !== undefined && value !== '')
-            shoe_brand = value;
-        return shoe_brand;
-    }
-
-    function getSize(value) {
-        if (value !== undefined && value !== '' && !isNaN(value))
-            shoe_size = value;
-        return shoe_size;
-    }      
-
-    function getQty(value) {
-        if (value !== undefined && value !== '' && !isNaN(value))
-            shoe_qty = value;
-        return shoe_qty;
-    }
-
-    function getColour(value) {
-        if (value !== undefined && value !== '')
-            shoe_colour = value;
-        return shoe_colour;
-    }
-
-    function filterByBrand(passed_brand, passed_color, passed_size) {
-        
-        if (passed_brand !== '' && passed_brand !== undefined) {
-            
-            if (passed_color !== '' && passed_color !== undefined){
-
-                if (passed_size !== '' && passed_size !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size});
-                    
-                }
-                console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color}));
-                
-                return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color});
-                
-            } else if (passed_size !== ''){
-
-                if (passed_color !== '' && passed_color !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size})
-                    
-                }
-                console.log(_.filter(shoeMap, {'brand':passed_brand, 'size': passed_size}));
-                
-                return _.filter(shoeMap, {'brand':passed_brand, 'size': passed_size});
-                
-            }
-            console.log(_.filter(shoeMap, {'brand':passed_brand}));
-            
-            return _.filter(shoeMap, {'brand':passed_brand});
-            //result = shoeMap.filter(current => (current.brand==passed_brand));
-        }
-        //return {};
-    }
-
-    function filterByColor (passed_color, passed_brand, passed_size) {
-        if (passed_color !== '' && passed_color !== undefined) {
-            
-            if (passed_brand !== '' && passed_brand !== undefined){
-
-                if (passed_size !== '' && passed_size !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size});
-                    
-                }
-                console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color}));
-                
-                return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color});
-                
-            } else if (passed_size !== ''){
-
-                if (passed_brand !== '' && passed_brand !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size})
-                    
-                }
-                console.log(_.filter(shoeMap, {'colour':passed_size, 'size': passed_size}));
-                
-                return _.filter(shoeMap, {'colour':passed_size, 'size': passed_size});
-                
-            }
-            console.log(_.filter(shoeMap, {'colour':passed_color}));
-            
-            return _.filter(shoeMap, {'colour':passed_color});
-            //result = shoeMap.filter(current => (current.brand==passed_brand));
-        }
-        //return {};
-    }
-
-    function filterBySize (passed_size, passed_brand, passed_color) {
-        if (passed_size !== '' && passed_size !== undefined) {
-            
-            if (passed_brand !== '' && passed_brand !== undefined){
-
-                if (passed_color !== '' && passed_color !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size});
-                    
-                }
-                console.log(_.filter(shoeMap, {'brand':passed_brand, 'size': passed_size}));
-                
-                return _.filter(shoeMap, {'brand':passed_brand, 'size': passed_size});
-                
-            } else if (passed_color !== '' && passed_color !== undefined){
-
-                if (passed_brand !== '' && passed_brand !== undefined) {
-                    console.log(_.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size}));
-                    
-                    return _.filter(shoeMap, {'brand':passed_brand, 'colour': passed_color, 'size': passed_size})
-                    
-                }
-                console.log(_.filter(shoeMap, {'colour':passed_size, 'size': passed_size}));
-                
-                return _.filter(shoeMap, {'colour':passed_size, 'size': passed_size});
-                
-            }
-            console.log(_.filter(shoeMap, {'size':passed_size}));
-            
-            return _.filter(shoeMap, {'size':passed_size});
-            //result = shoeMap.filter(current => (current.brand==passed_brand));
-        }
-        //return {};
-    }
-
     function addNew(brand, color, size, price, qty) {
-        shoe_brand = brand;
-        shoe_colour= color;
-        shoe_size = size;
-        shoe_price = price;
-        shoe_qty = qty;
-       
-        // add to map
-        shoeMap.push({
-            'brand':shoe_brand,
-            'colour': shoe_colour,
-            'size': shoe_size,
-            'price': shoe_price,
-            'qty': shoe_qty
-        });
+        let exists = false;
+
+        if (brand !== '' && color !== '' && size !== '' && price !== '' && qty !== '') {
+            shoeMap.map(current => {
+                if (current.brand === brand && current.colour === color && current.size === size && current.price === price) {
+                    current.qty = parseFloat(current.qty) + parseFloat(qty);
+                    exists = true;
+                } 
+            })
+            // add to map if it doesnt exist
+            if (!exists) {
+                let id = shoeMap.length +1;
+                shoeMap.push({
+                    id: id,
+                    brand: brand,
+                    colour: color,
+                    size: size,
+                    price: price,
+                    qty: qty
+                })
+            }
+        }
+    }
+
+    function filterFunc(search_params) {
+        console.log(_.filter(shoeMap, search_params));
+
+        return _.filter(shoeMap, search_params);
+        //return shoeMap.filter(shoe => shoe.search_params);
+    }
+    function addtoCart(id) {
+         let found = shoeMap.find(shoe => (shoe.id == id));
+         trolley.push(found);
     }
 
     function getShoeMap() {
         return shoeMap;
+    }
+
+    function getTrolley(){
+        return trolley;
     }
 
     function displayShoes() {
@@ -178,16 +64,12 @@ function ShoeCatalogue(storedData, storedTrolley) {
     }
 
     return {
-        brand: getBrand,
-        colour: getColour,
-        size: getSize,
-        qty: getQty,
         new: addNew,
         display: displayShoes,
         map: getShoeMap,
-        brandFilter: filterByBrand,
-        colorFilter: filterByColor,
-        sizeFilter: filterBySize
+        filterBy: filterFunc,
+        toCart: addtoCart,
+        cart: getTrolley
     };
 }
 

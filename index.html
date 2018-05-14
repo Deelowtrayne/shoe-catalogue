@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shoe-catalofue | A Javascript application for a simple shoe ordering system</title>
+    <title>Shoe-catalogue | A Javascript application for a simple shoe ordering system</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Handlebars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <!-- lodash -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 </head>
 <body>
@@ -20,7 +23,7 @@
             <input type="number" class="shoe-size" placeholder="Shoe size">
             <input type="number" class="shoe-price" placeholder="Shoe price">
             <input type="number" class="shoe-qty" placeholder="In stock">
-            <button type="submit" class="add-button">Add </button>
+            <button type="submit" class="add-button">Add</button>
         </div>
 
         <div class="main clearfix">
@@ -50,37 +53,32 @@
                 </select>
                 <div><button class="open-add-section">Add new item</button></div>
             </section>
-            <section class="display-area">
- 
-                <script type="text/x-template" class="example">
-                    {{#each}}
-                        <div class="shoe clearfix">
-                            <table>
-                                <tr>
-                                    <td><b>Brand:</b></td>
-                                    <td>Studio.W</td> 
-                                </tr>
-                                <tr>
-                                    <td>Colour:</b></td>
-                                    <td><b>Black</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Size:</b></td>
-                                    <td>6.5</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Price:</b></td>
-                                    <td>R1 999.00</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Qty:</b></td>
-                                    <td>7</td>
-                                </tr>
-                            </table>
-                            <!-- // Buy button -->
-                            <aside class="item-image"></aside>
-                            <!-- <button>Buy</button> -->
-                        </div>
+            <section class="display-area list-display">
+                
+                <script type="text/x-template" class="shoes-template">
+                    {{#each context}}
+                    <div class="shoe clearfix">
+                        <table>
+                            <tr>
+                                <td><b>Brand:</b></td> <td>{{brand}}</td> 
+                            </tr>
+                            <tr>
+                                <td><b>Colour:</b></td> <td>{{colour}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Size:</b></td> <td>{{size}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Price:</b></td> <td>{{price}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Qty:</b></td> <td>{{qty}}</td>
+                            </tr>
+                        </table>
+                        <!-- // Buy button -->
+                        <!-- <aside class="item-image"></aside> -->
+                        <button class"buy-btn"  id="{{id}}" onclick="searchString(this)">Buy</button>
+                    </div>
                     {{/each}}
                 </script>
 
@@ -91,10 +89,13 @@
 
 <script>
 
-
+// Buttons
 var shoeAdd = document.querySelector('.add-shoe');
+var btnBuy = document.querySelector('.buy-btn');
 var btnAddItem = document.querySelector('.add-button');
 var btnAddSection = document.querySelector('.open-add-section');
+
+// New shoe inputs
 var brandElem = document.querySelector('.shoe-brand');
 var colourElem = document.querySelector('.shoe-colour');
 var sizeElem = document.querySelector('.shoe-size');
@@ -106,15 +107,44 @@ var brandSelect = document.querySelector('.brand-select');
 var colourSelect = document.querySelector('.colour-select');
 var sizeSelect = document.querySelector('.size-select');
 
+// template setup
+let templateSource = document.querySelector('.shoes-template').innerHTML;
+const SHOE_TEMPLATE = Handlebars.compile(templateSource);
+
+var displayElem = document.querySelector('.list-display');
+
 // get stored data
 var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStorage.getItem('AVAILABLE_SHOES')) : [];
 // instance
 var shoes = ShoeCatalogue(storedShoes);
 
-//globals
-var filterBrand = '';
-var filterColour = '';
-var filterSize = '';
+function filterEvent() {
+    let params = {};
+
+    if (brandSelect.value !== '') {
+        params.brand = brandSelect.value;
+    }
+
+    if (colourSelect.value !== '') {
+        params.colour = colourSelect.value;
+    }
+
+    if (sizeSelect.value !== '') {
+        params.size = sizeSelect.value;
+    }
+
+    //shoes.filterBy(params);
+    displayElem.innerHTML = SHOE_TEMPLATE({context:shoes.filterBy(params)})
+}
+
+function searchString(elem) {
+    shoes.toCart(elem.id);
+    console.log(shoes.cart());
+    
+}
+window.addEventListener('DOMContentLoaded', function(){
+    displayElem.innerHTML = SHOE_TEMPLATE({context:shoes.map()});
+})
 
 btnAddSection.addEventListener('click', function(){
     shoeAdd.classList.toggle('show');
@@ -131,26 +161,9 @@ btnAddItem.addEventListener('click', function() {
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
 });
 
-brandSelect.addEventListener('change', function(){
-    filterBrand = brandSelect.value;
-    filterColour = colourSelect.value;
-    filterSize = sizeSelect.value;
-    shoes.brandFilter(filterBrand, filterColour, filterSize);
-});
-
-colourSelect.addEventListener('change', function(){
-    filterBrand = brandSelect.value;
-    filterColour = colourSelect.value;
-    filterSize = sizeSelect.value;
-    shoes.colorFilter(filterColour, filterBrand, filterSize);
-}); 
-
-sizeSelect.addEventListener('change', function(){
-    filterBrand = brandSelect.value;
-    filterColour = colourSelect.value;
-    filterSize = sizeSelect.value;
-    shoes.sizeFilter( filterSize, filterBrand, filterColour);
-});
+brandSelect.addEventListener('change', filterEvent);
+colourSelect.addEventListener('change', filterEvent); 
+sizeSelect.addEventListener('change', filterEvent);
 
 </script>
 </body>

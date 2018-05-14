@@ -1,50 +1,74 @@
 describe ('Test results for the Shoe Catalogue application', function (){
-    describe('Tests the brand name input function', function(){
-        let catalogue = ShoeCatalogue();
-        it('Should return true if the passed value is a valid brand name', function() {
-            assert.equal(catalogue.brand('Lacoste'), 'Lacoste');
+    // Filter test
+    describe('Tests the Add Shoe function', function(){
+        
+        it('Should add and return an array with 1 shoe objects', function() {
+            let catalogue = ShoeCatalogue();
+            //brand, color, size, price, qty
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+            assert.deepEqual(catalogue.map(), [{id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12}]);
         });
-        it('Should return false if the passed value is not a valid brand name', function() {
-            assert.notEqual(catalogue.brand(''), '');
+        it('Should add and return an array with 2 shoe objects', function() {
+            let catalogue = ShoeCatalogue();
+            //brand, color, size, price, qty
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+            catalogue.new('John Drakes', 'Black', 7, 1029.90, 17);
+            assert.deepEqual(catalogue.map(), [
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12},
+                {id: 2, brand: 'John Drakes', colour: 'Black', size: 7, price: 1029.90, qty: 17}
+            ]);
         });
-        it('Should return pre-stored brand name if no value is provided', function() {
-            assert.deepEqual(catalogue.brand(), 'Lacoste');
-        });
-    });
-    describe('Tests the shoe size input function', function(){
-        let catalogue = ShoeCatalogue();
-        it('Should return true if the passed value is a valid shoe size', function() {
-            assert.equal(catalogue.size(6), 6);
-        });
-        it('Should return false if the passed value is not a valid shoe size', function() {
-            assert.notEqual(catalogue.size('four'), 4);
-        });
-        it('Should return pre-stored shoe size if no value is provided', function() {
-            assert.deepEqual(catalogue.size(), 6);
-        });
-    });
-    describe('Tests the shoe colour input function', function(){
-        let catalogue = ShoeCatalogue();
-        it('Should return true if the passed value is a valid shoe colour', function() {
-            assert.equal(catalogue.colour('Black'), 'Black');
-        });
-        it('Should return false if the passed value is not a valid shoe colour', function() {
-            assert.notEqual(catalogue.colour('White'), '#fff');
-        });
-        it('Should return pre-stored shoe colour if no value is provided', function() {
-            assert.deepEqual(catalogue.colour(), 'White');
+        it('Should increment the quantity and return an array with 1 shoe object', function() {
+            let catalogue = ShoeCatalogue();
+            //brand, color, size, price, qty
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 10);
+            assert.deepEqual(catalogue.map(), [
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 22}
+            ]);
         });
     });
-    describe('Tests the shoe quantity input function', function(){
-        let catalogue = ShoeCatalogue();
-        it('Should return true if the passed value is a valid shoe quantity', function() {
-            assert.equal(catalogue.qty(12), 12);
+    // Filter test
+    // describe('Tests the Add Shoe function', function(){
+        
+    //     it('Should return an array with 2 shoe objects', function() {
+    //         let catalogue = ShoeCatalogue();
+    //         //brand, color, size, price, qty
+    //         catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+    //         catalogue.new('John Drakes', 'Black', 7, 1029.90, 17);
+    //         assert.deepEqual(catalogue.map(), [
+    //             {brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12},
+    //             {brand: 'John Drakes', colour: 'Black', size: 7, price: 1029.90, qty: 17}
+    //         ]);
+    //     });
+    // });
+
+    // Filter test
+    describe('Tests the Shopping Cart function', function(){
+        
+        it('Should return an array (trolley) with 1 shoe object', function() {
+            let catalogue = ShoeCatalogue();
+            //brand, color, size, price, qty
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+            catalogue.new('John Drakes', 'Black', 7, 1029.90, 17);
+            catalogue.toCart(1);
+            assert.deepEqual(catalogue.cart(), [
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12}
+            ]);
         });
-        it('Should return false if the passed value is not a valid shoe quantity', function() {
-            assert.notEqual(catalogue.qty(23), 32);
-        });
-        it('Should return pre-stored shoe quantity if no value is provided', function() {
-            assert.deepEqual(catalogue.qty(), 23);
+        
+        it('Should return an array (trolley) with 2 shoe object', function() {
+            let catalogue = ShoeCatalogue();
+            //brand, color, size, price, qty
+            catalogue.new('Lacoste', 'Avo-green', 6, 899.90, 12);
+            catalogue.new('John Drakes', 'Black', 7, 1029.90, 17);
+            catalogue.toCart(1);
+            catalogue.toCart(2);
+            assert.deepEqual(catalogue.cart(), [
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12},
+                {id: 2, brand: 'John Drakes', colour: 'Black', size: 7, price: 1029.90, qty: 17}
+            ]);
         });
     });
+    
 });
