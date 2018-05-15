@@ -1,11 +1,17 @@
 function ShoeCatalogue(storedData, storedTrolley) {
 
     var trolley = [];
-    var shoeMap = [];
+    var availableShoes = [];
 
     if (storedData) {
         for (let i = 0; i < storedData.length; i++) {
-            shoeMap.push(storedData[i]);
+            availableShoes.push(storedData[i]);
+        }
+    }
+
+    if (storedTrolley) {
+        for (let i = 0; i < storedTrolley.length; i++) {
+            trolley.push(storedTrolley[i]);
         }
     }
 
@@ -13,7 +19,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
         let exists = false;
 
         if (brand !== '' && color !== '' && size !== '' && price !== '' && qty !== '') {
-            shoeMap.map(current => {
+            availableShoes.map(current => {
                 if (current.brand === brand && current.colour === color && current.size === size && current.price === price) {
                     current.qty = parseFloat(current.qty) + parseFloat(qty);
                     exists = true;
@@ -21,8 +27,8 @@ function ShoeCatalogue(storedData, storedTrolley) {
             })
             // add to map if it doesnt exist
             if (!exists) {
-                let id = shoeMap.length +1;
-                shoeMap.push({
+                let id = availableShoes.length +1;
+                availableShoes.push({
                     id: id,
                     brand: brand,
                     colour: color,
@@ -35,38 +41,43 @@ function ShoeCatalogue(storedData, storedTrolley) {
     }
 
     function filterFunc(search_params) {
-        console.log(_.filter(shoeMap, search_params));
-
-        return _.filter(shoeMap, search_params);
-        //return shoeMap.filter(shoe => shoe.search_params);
+        return _.filter(availableShoes, search_params);
     }
+
     function addtoCart(id) {
         // check if it exists in the trolley (update if it does) or (add if it doesn't)
         let exists = false;
 
-        trolley.map(cartShoe => {
-            if (cartShoe.id == id) {
-                cartShoe.qty += 1;
+        trolley.map(current => {
+            if (current.id == id) {
+                current.qty += 1;
                 exists = true;
             }
         })
 
         if (!exists){
-            let updateItem = shoeMap.find(shoe => (shoe.id == id));
-            updateItem.qty = 1;
-            trolley.push(updateItem);
+            let updateItem = availableShoes.find(shoe => (shoe.id == id));
+            
+            trolley.push({
+                id: id,
+                brand: updateItem.brand,
+                colour: updateItem.colour,
+                size: updateItem.size,
+                price: updateItem.price,
+                qty: 1
+            });
         }
 
         // update the shoe map
-        shoeMap.map(mapShoe => {
-            if (mapShoe.id == id) { 
-                mapShoe.qty = mapShoe.qty - 1;
+        availableShoes.map(current => {
+            if (current.id == id) { 
+                current.qty = current.qty - 1;
             } 
         })
     }
 
-    function getShoeMap() {
-        return shoeMap;
+    function getAvailableShoes() {
+        return availableShoes;
     }
 
     function getTrolley(){
@@ -74,11 +85,11 @@ function ShoeCatalogue(storedData, storedTrolley) {
     }
 
     function displayShoes() {
-        if (shoeMap.length > 1) {
+        if (availableShoes.length > 1) {
             return "<h1>Nothing to display</h1>";
         }
 
-        for (shoe in shoeMap) {
+        for (shoe in availableShoes) {
             trolley.push(shoe);
         }
     }
@@ -86,7 +97,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
     return {
         new: addNew,
         display: displayShoes,
-        map: getShoeMap,
+        map: getAvailableShoes,
         filterBy: filterFunc,
         toCart: addtoCart,
         cart: getTrolley

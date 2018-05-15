@@ -25,8 +25,9 @@ var displayElem = document.querySelector('.list-display');
 
 // get stored data
 var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStorage.getItem('AVAILABLE_SHOES')) : [];
-// instance
-var shoes = ShoeCatalogue(storedShoes);
+var storedCart = localStorage.getItem('CART') ? JSON.parse(localStorage.getItem('CART')) : [];
+// factory function instance
+var shoes = ShoeCatalogue(storedShoes, storedCart);
 
 function filterEvent() {
     let params = {};
@@ -34,7 +35,7 @@ function filterEvent() {
     if (brandSelect.value !== '') {
         params.brand = brandSelect.value;
     }
-    
+
     if (colourSelect.value !== '') {
         params.colour = colourSelect.value;
     }
@@ -49,7 +50,8 @@ function filterEvent() {
 
 function searchString(elem) {
     shoes.toCart(elem.id);
-    console.log(shoes.cart());
+    localStorage.setItem('CART', JSON.stringify(shoes.cart()));
+    console.log();
     
 }
 window.addEventListener('DOMContentLoaded', function(){

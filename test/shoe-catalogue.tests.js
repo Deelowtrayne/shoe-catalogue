@@ -53,7 +53,7 @@ describe ('Test results for the Shoe Catalogue application', function (){
             catalogue.new('John Drakes', 'Black', 7, 1029.90, 17);
             catalogue.toCart(1);
             assert.deepEqual(catalogue.cart(), [
-                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12}
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 1}
             ]);
         });
         
@@ -65,8 +65,8 @@ describe ('Test results for the Shoe Catalogue application', function (){
             catalogue.toCart(1);
             catalogue.toCart(2);
             assert.deepEqual(catalogue.cart(), [
-                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 12},
-                {id: 2, brand: 'John Drakes', colour: 'Black', size: 7, price: 1029.90, qty: 17}
+                {id: 1, brand: 'Lacoste', colour: 'Avo-green', size: 6, price: 899.90, qty: 1},
+                {id: 2, brand: 'John Drakes', colour: 'Black', size: 7, price: 1029.90, qty: 1}
             ]);
         });
     });
