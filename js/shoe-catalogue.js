@@ -29,7 +29,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
                     size: size,
                     price: price,
                     qty: qty
-                })
+                });
             }
         }
     }
@@ -41,8 +41,28 @@ function ShoeCatalogue(storedData, storedTrolley) {
         //return shoeMap.filter(shoe => shoe.search_params);
     }
     function addtoCart(id) {
-         let found = shoeMap.find(shoe => (shoe.id == id));
-         trolley.push(found);
+        // check if it exists in the trolley (update if it does) or (add if it doesn't)
+        let exists = false;
+
+        trolley.map(cartShoe => {
+            if (cartShoe.id == id) {
+                cartShoe.qty += 1;
+                exists = true;
+            }
+        })
+
+        if (!exists){
+            let updateItem = shoeMap.find(shoe => (shoe.id == id));
+            updateItem.qty = 1;
+            trolley.push(updateItem);
+        }
+
+        // update the shoe map
+        shoeMap.map(mapShoe => {
+            if (mapShoe.id == id) { 
+                mapShoe.qty = mapShoe.qty - 1;
+            } 
+        })
     }
 
     function getShoeMap() {

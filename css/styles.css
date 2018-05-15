@@ -59,12 +59,12 @@ select {
   max-height: 400px;
   width: 50%;
   display: table-cell;
-  border-right: 2px #ccc solid; 
+  border-right: 2px #ccc solid;
 }
 
 .display-area:last-of-type {
   border: none;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 .display-area h2 {
@@ -103,10 +103,22 @@ select {
 .item-image {
   background: url('../img/all-star.jpg') center center;
   background-size: cover;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   position: absolute;
   right: 1rem; bottom: 6px;
+}
+
+.buy-btn {
+  font-size: 120%;
+  padding: 0.6rem;
+  background: #fff;
+  border: none;
+}
+
+.buy-btn:hover {
+  color: #fff;
+  background: green;
 }
 
 .add-shoe{
