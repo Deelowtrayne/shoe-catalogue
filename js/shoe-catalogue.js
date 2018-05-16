@@ -2,7 +2,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
 
     var trolley = [];
     var availableShoes = [];
-
+    var trolleyTotal = 0;
     if (storedData) {
         for (let i = 0; i < storedData.length; i++) {
             availableShoes.push(storedData[i]);
@@ -33,8 +33,8 @@ function ShoeCatalogue(storedData, storedTrolley) {
                     brand: brand,
                     colour: color,
                     size: size,
-                    price: price,
-                    qty: qty
+                    price: parseFloat(price).toFixed(2),
+                    qty: parseFloat(qty)
                 });
             }
         }
@@ -76,6 +76,14 @@ function ShoeCatalogue(storedData, storedTrolley) {
         })
     }
 
+    function getCartTotal() { 
+        let subTotal = 0;
+        if(trolley.length > 0) {
+            subTotal = trolley.reduce((total, current) => (total + (current.price * current.qty)), '');
+        }
+        return trolleyTotal + subTotal;
+    }
+
     function getAvailableShoes() {
         return availableShoes;
     }
@@ -84,23 +92,13 @@ function ShoeCatalogue(storedData, storedTrolley) {
         return trolley;
     }
 
-    function displayShoes() {
-        if (availableShoes.length > 1) {
-            return "<h1>Nothing to display</h1>";
-        }
-
-        for (shoe in availableShoes) {
-            trolley.push(shoe);
-        }
-    }
-
     return {
         new: addNew,
-        display: displayShoes,
         map: getAvailableShoes,
         filterBy: filterFunc,
         toCart: addtoCart,
-        cart: getTrolley
+        cart: getTrolley,
+        cartTotal: getCartTotal
     };
 }
 

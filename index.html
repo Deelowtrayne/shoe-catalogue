@@ -15,8 +15,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="topbar">
+        <div class="topbar clearfix">
             <h1>Shoe Catalogue App<br><small>A simple javascript shoe catalogue application</small></h1>
+            <button class="cart-btn" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i></button>
         </div>
 
         <div class="add-shoe">
@@ -26,6 +27,29 @@
             <input type="number" class="shoe-price" placeholder="Shoe price">
             <input type="number" class="shoe-qty" placeholder="In stock">
             <button type="submit" class="add-button">Add</button>
+        </div>
+
+        <div class="cart-container">
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+            <div class="cart-wrapper clearfix">
+                <script type="text/x-template" class="cart-template">
+                    {{#each cartItems}}
+                    <div class="shoe clearfix">
+                        <table>
+                            <tr><td><b>Brand:</b></td> <td>{{brand}}</td></tr>
+                            <tr><td><b>Colour:</b></td> <td>{{colour}}</td></tr>
+                            <tr><td><b>Size:</b></td> <td>{{size}}</td></tr>
+                            <tr><td><b>Price:</b></td> <td>{{price}}</td></tr>
+                            <tr><td><b>Qty:</b></td> <td>{{qty}}</td></tr>
+                        </table>
+                        <button class="buy-btn" onclick="searchString({{id}})"><i class="fas fa-shopping-bag"></i></button>
+                        <!-- // Buy button -->
+                        <aside class="item-image"></aside>
+                    </div>
+                    {{/each}}
+                    <div class="cart-total">Total Due: R{{total}}</div>
+                </script>
+            </div>
         </div>
 
         <div class="main clearfix">
@@ -53,37 +77,26 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <div><button class="open-add-section">Add new item</button></div>
+                <div><button class="open-add-section" onclick="toggleAddNew()">Add new item</button></div>
             </section>
             <section class="display-area list-display">
                 
                 <script type="text/x-template" class="shoes-template">
-                    {{#each context}}
+                    {{#each shoeList}}
                     <div class="shoe clearfix">
                         <table>
-                            <tr>
-                                <td><b>Brand:</b></td> <td>{{brand}}</td> 
-                            </tr>
-                            <tr>
-                                <td><b>Colour:</b></td> <td>{{colour}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Size:</b></td> <td>{{size}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Price:</b></td> <td>{{price}}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Qty:</b></td> <td>{{qty}}</td>
-                            </tr>
+                            <tr><td><b>Brand:</b></td> <td>{{brand}}</td></tr>
+                            <tr><td><b>Colour:</b></td> <td>{{colour}}</td></tr>
+                            <tr><td><b>Size:</b></td> <td>{{size}}</td></tr>
+                            <tr><td><b>Price:</b></td> <td>{{price}}</td></tr>
+                            <tr><td><b>Qty:</b></td> <td>{{qty}}</td></tr>
                         </table>
-                        <button class="buy-btn"  id="{{id}}" onclick="searchString(this)"><i class="fas fa-shopping-basket"></i></button>
+                        <button class="buy-btn" onclick="searchString({{id}})"><i class="fas fa-shopping-bag"></i></button>
                         <!-- // Buy button -->
                         <aside class="item-image"></aside>
                     </div>
                     {{/each}}
                 </script>
-
             </section>
         </div>
     </div>
