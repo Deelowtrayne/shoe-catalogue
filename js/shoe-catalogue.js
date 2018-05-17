@@ -1,15 +1,30 @@
 function ShoeCatalogue(storedData, storedTrolley) {
 
     var trolley = [];
-    var availableShoes = [];
     var trolleyTotal = 0;
-    if (storedData) {
+    var availableShoes = [
+        // Adidas
+        {id:1, brand: "Adidas", colour: "Black", price: 449.00, size: 4, qty: 12},
+        {id:2, brand: "Adidas", colour: "White", price: 349.00, size: 6, qty: 12},
+        {id:3, brand: "Adidas", colour: "Blue", price: 549.00, size: 7, qty: 12},
+        // Nike
+        {id:4, brand: "Nike", colour: "Black", price: 449.00, size: 4, qty: 12},
+        {id:5, brand: "Nike", colour: "White", price: 349.00, size: 6, qty: 12},
+        {id:6, brand: "Nike", colour: "Blue", price: 549.00, size: 7, qty: 12},
+        // Reebok
+        {id:7, brand: "Reebok", colour: "Black", price: 499.00, size: 4, qty: 12},
+        {id:8, brand: "Reebok", colour: "White", price: 399.00, size: 5, qty: 12},
+        {id:9, brand: "Reebok", colour: "Blue", price: 599.00, size: 7, qty: 12},
+    ];
+
+    if (storedData && storedData.length > 0) {
+        availableShoes = [];
         for (let i = 0; i < storedData.length; i++) {
             availableShoes.push(storedData[i]);
         }
     }
 
-    if (storedTrolley) {
+    if (storedTrolley && storedTrolley > 0) {
         for (let i = 0; i < storedTrolley.length; i++) {
             trolley.push(storedTrolley[i]);
         }
@@ -33,7 +48,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
                     brand: brand,
                     colour: color,
                     size: size,
-                    price: parseFloat(price).toFixed(2),
+                    price: parseFloat(price),
                     qty: parseFloat(qty)
                 });
             }
