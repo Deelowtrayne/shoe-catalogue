@@ -95,8 +95,14 @@ input, select {
 }
 
 .open-add-section {
-  margin-top: 2rem;
   padding: 1rem;
+  background: none;
+  border: none;
+}
+.open-add-section:hover {
+  background: green;
+  color: #fff;
+  font-weight: bold;
 }
 
 .row:first-of-type select {
