@@ -7,7 +7,6 @@ var btnAddSection = document.querySelector('.open-add-section');
 var cartBtn = document.querySelector('.cart-btn');
 var cartDisplay = document.querySelector('.cart-container');
 var cartClose = document.querySelector('.cart-close');
-var btnClearTrolley = document.querySelector('.clear-cart');
 
 // New shoe inputs
 var brandElem = document.querySelector('.shoe-brand');
@@ -71,8 +70,19 @@ function updateCartDisplay() {
 
 function searchString(shoeID) {
     shoes.toCart(shoeID);
+    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
     localStorage.setItem('CART', JSON.stringify(shoes.cart()));
     updateCartDisplay();
+    // force reload to update values
+    location.reload();
+}
+
+function clearCart() {
+    shoes.cancel();
+    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
+    localStorage.removeItem('CART');
+    // force reload to update values
+    location.reload();
 }
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -94,12 +104,6 @@ btnAddItem.addEventListener('click', function() {
     );
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
 });
-
-btnClearTrolley.addEventListener('click', function(){
-    shoes.cancel();
-    localStorage.removeItem('CART');
-})
-
 
 brandSelect.addEventListener('change', filterEvent);
 colourSelect.addEventListener('change', filterEvent); 

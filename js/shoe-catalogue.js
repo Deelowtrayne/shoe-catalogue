@@ -77,6 +77,16 @@ function ShoeCatalogue(storedData, storedTrolley) {
     }
 
     function clearTrolley() {
+        for (let i = 0; i < availableShoes.length; i++) {
+            // temp vars
+            let current = availableShoes[i];
+            let trolleyMatch = trolley.find(shoe => (shoe.id == current.id));
+            // replace product
+            if (trolleyMatch) {
+                current.qty += trolleyMatch.qty;
+            }
+        }
+        trolleyTotal = 0.00;
         trolley = [];
     }
 
