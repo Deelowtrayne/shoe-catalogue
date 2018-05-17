@@ -171,9 +171,21 @@ select {
 .cart-wrapper {
   overflow-y: scroll;
 }
+
+.clear-cart {
+  display: block;
+  margin-bottom: 1rem;
+  background: transparent;
+  border: none;
+  color: #ccc;
+}
+.clear-cart:hover {
+  
+  color: crimson;
+}
 .cart-total {
   position: absolute;
-  /* z-index: 100000; */
+  z-index: 10000;
   font-size: 120%;
   bottom: 0;
   padding: 1rem;
@@ -185,7 +197,7 @@ select {
   right: 0;
   font-size: 1.6rem;
   margin-bottom: 4px;
-  background: rgba(246, 0, 0, 0.7);
+  background: crimson;
   border: none;
   z-index: 100000;
 }

@@ -42,16 +42,18 @@
                             <tr><td><b>Price:</b></td> <td>{{price}}</td></tr>
                             <tr><td><b>Qty:</b></td> <td>{{qty}}</td></tr>
                         </table>
-                        <button class="buy-btn" onclick="searchString({{id}})"><i class="fas fa-shopping-bag"></i></button>
                         <!-- // Buy button -->
                         <aside class="item-image"></aside>
                     </div>
                     {{/each}}
-                    <div class="cart-total">Total Due: R{{total}}</div>
+                    <div class="cart-total">
+                        <button class="clear-cart"><i class="fas fa-trash"></i> clear all</button>
+                        Total Due: R{{total}}
+                    </div> 
                 </script>
             </div>
         </div>
-
+        
         <div class="main clearfix">
             <section class="display-area">
                 <h2>Choose a product</h2>

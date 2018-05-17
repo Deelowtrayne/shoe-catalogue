@@ -7,6 +7,7 @@ var btnAddSection = document.querySelector('.open-add-section');
 var cartBtn = document.querySelector('.cart-btn');
 var cartDisplay = document.querySelector('.cart-container');
 var cartClose = document.querySelector('.cart-close');
+var btnClearTrolley = document.querySelector('.clear-cart');
 
 // New shoe inputs
 var brandElem = document.querySelector('.shoe-brand');
@@ -93,6 +94,11 @@ btnAddItem.addEventListener('click', function() {
     );
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
 });
+
+btnClearTrolley.addEventListener('click', function(){
+    shoes.cancel();
+    localStorage.removeItem('CART');
+})
 
 
 brandSelect.addEventListener('change', filterEvent);

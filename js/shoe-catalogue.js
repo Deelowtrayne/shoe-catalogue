@@ -76,12 +76,16 @@ function ShoeCatalogue(storedData, storedTrolley) {
         })
     }
 
+    function clearTrolley() {
+        trolley = [];
+    }
+
     function getCartTotal() { 
         let subTotal = 0;
         if(trolley.length > 0) {
-            subTotal = trolley.reduce((total, current) => (total + (current.price * current.qty)), '');
+            subTotal = trolley.reduce((total, current) => (total + (current.price * current.qty)), 0);
         }
-        return trolleyTotal + subTotal;
+        return (trolleyTotal + subTotal).toFixed(2);
     }
 
     function getAvailableShoes() {
@@ -98,7 +102,8 @@ function ShoeCatalogue(storedData, storedTrolley) {
         filterBy: filterFunc,
         toCart: addtoCart,
         cart: getTrolley,
-        cartTotal: getCartTotal
+        cartTotal: getCartTotal,
+        cancel: clearTrolley
     };
 }
 
