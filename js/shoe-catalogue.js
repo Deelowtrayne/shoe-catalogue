@@ -64,6 +64,10 @@ function ShoeCatalogue(storedData, storedTrolley) {
         // check if it exists in the trolley (update if it does) or (add if it doesn't)
         let exists = false;
 
+        var updateItem = availableShoes.find(shoe => (shoe.id == id));
+        
+
+     if (updateItem.qty > 0) {
         trolley.map(current => {
             if (current.id == id) {
                 current.qty += 1;
@@ -71,9 +75,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
             }
         })
 
-        if (!exists){
-            let updateItem = availableShoes.find(shoe => (shoe.id == id));
-            
+        if (!exists){            
             trolley.push({
                 id: id,
                 brand: updateItem.brand,
@@ -90,6 +92,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
                 current.qty = current.qty - 1;
             } 
         })
+     }
     }
 
     function clearTrolley() {
