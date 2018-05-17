@@ -73,7 +73,7 @@ function searchString(shoeID) {
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
     localStorage.setItem('CART', JSON.stringify(shoes.cart()));
     updateCartDisplay();
-    // force reload to update values
+    // force reload to update
     location.reload();
 }
 
@@ -81,8 +81,6 @@ function clearCart() {
     shoes.cancel();
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
     localStorage.removeItem('CART');
-    // force reload to update values
-    location.reload();
 }
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -91,7 +89,6 @@ window.addEventListener('DOMContentLoaded', function(){
         cartItems: shoes.cart(),
         total: shoes.cartTotal()
     });
-    
 })
 
 btnAddItem.addEventListener('click', function() {

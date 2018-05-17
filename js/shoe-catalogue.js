@@ -1,6 +1,6 @@
 function ShoeCatalogue(storedData, storedTrolley) {
 
-    var trolley = [];
+    var trolley = storedTrolley || [];
     var trolleyTotal = 0;
     var availableShoes = [
         // Adidas
@@ -24,11 +24,12 @@ function ShoeCatalogue(storedData, storedTrolley) {
         }
     }
 
-    if (storedTrolley && storedTrolley > 0) {
-        for (let i = 0; i < storedTrolley.length; i++) {
-            trolley.push(storedTrolley[i]);
-        }
-    }
+    // if (storedTrolley && storedTrolley > 0) {
+    //     trolley = [];
+    //     for (let i = 0; i < storedTrolley.length; i++) {
+    //         trolley.push(storedTrolley[i]);
+    //     }
+    // }
 
     function addNew(brand, color, size, price, qty) {
         let exists = false;
