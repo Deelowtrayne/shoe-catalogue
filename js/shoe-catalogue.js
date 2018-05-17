@@ -92,7 +92,10 @@ function ShoeCatalogue(storedData, storedTrolley) {
                 current.qty = current.qty - 1;
             } 
         })
+        return true;
      }
+     
+     return false;
     }
 
     function clearTrolley() {

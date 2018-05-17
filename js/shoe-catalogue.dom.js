@@ -68,13 +68,16 @@ function updateCartDisplay() {
     });
 }
 
-function searchString(shoeID) {
-    shoes.toCart(shoeID);
-    localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
-    localStorage.setItem('CART', JSON.stringify(shoes.cart()));
-    updateCartDisplay();
-    // force reload to update
-    location.reload();
+function searchString(elem) {
+    if (shoes.toCart(elem.id)) {
+        localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
+        localStorage.setItem('CART', JSON.stringify(shoes.cart()));
+        updateCartDisplay();
+        // force reload to update
+        location.reload();
+        return;
+    }
+    elem.disabled = true;
 }
 
 function clearCart() {

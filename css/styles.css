@@ -13,12 +13,12 @@ body {
   font-family: 'Lato', Helvetica, sans-serif;
 }
 
-input {
+input, select {
   padding: 6px;
   margin-bottom: 6px;
 }
 
-select {
+.display-area select {
   padding: 8px;
   width: 80%;
   margin-bottom: 1rem;

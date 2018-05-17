@@ -21,9 +21,27 @@
         </div>
 
         <div class="add-shoe">
-            <input type="text" class="shoe-brand" placeholder="Brand name">
-            <input type="colour" class="shoe-colour" placeholder="Shoe colour">
-            <input type="number" class="shoe-size" placeholder="Shoe size">
+            <select name="brand" class="shoe-brand">
+                <option value="">Shoe brand</option>
+                <option value="Nike">Nike</option>
+                <option value="Adidas">Adidas</option>
+                <option value="Puma">Puma</option>
+                <option value="Reebok">Reebok</option>
+            </select>
+            <select name="brand" class="shoe-colour">
+                <option value="">Shoe colour</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Brown">Brown</option>
+                <option value="Blue">Blue</option>
+            </select>
+            <select name="size" class="shoe-size">
+                <option value="">Shoe size</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
             <input type="number" class="shoe-price" placeholder="Shoe price">
             <input type="number" class="shoe-qty" placeholder="In stock">
             <button type="submit" class="add-button">Add</button>
@@ -93,7 +111,7 @@
                             <tr><td><b>Price:</b></td> <td>{{price}}</td></tr>
                             <tr><td><b>Qty:</b></td> <td>{{qty}}</td></tr>
                         </table>
-                        <button class="buy-btn" onclick="searchString({{id}})"><i class="fas fa-shopping-bag"></i></button>
+                        <button class="buy-btn" id="{{id}}" onclick="searchString(this)"><i class="fas fa-shopping-bag"></i></button>
                         <!-- // Buy button -->
                         <aside class="item-image"></aside>
                     </div>
