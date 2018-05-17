@@ -81,6 +81,8 @@ function clearCart() {
     shoes.cancel();
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
     localStorage.removeItem('CART');
+    // force reload to update
+    location.reload();
 }
 
 window.addEventListener('DOMContentLoaded', function(){
