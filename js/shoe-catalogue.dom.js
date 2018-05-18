@@ -28,6 +28,7 @@ const CART_TEMPLATE = Handlebars.compile(cartTemplate);
 
 var displayElem = document.querySelector('.list-display');
 var cartWrapper = document.querySelector('.cart-wrapper');
+var addAlert = document.querySelector('.alert');
 
 // get stored data
 var storedShoes = localStorage.getItem('AVAILABLE_SHOES') ? JSON.parse(localStorage.getItem('AVAILABLE_SHOES')) : [];
@@ -59,6 +60,10 @@ function toggleCart() {
 
 function toggleAddNew(){
     shoeAdd.classList.toggle('show');
+}
+
+function toggleAlert() {
+    addAlert.classList.toggle('show');
 }
 
 function updateCartDisplay() {
@@ -105,6 +110,8 @@ btnAddItem.addEventListener('click', function() {
         qtyElem.value
     );
     localStorage.setItem('AVAILABLE_SHOES', JSON.stringify(shoes.map()));
+    toggleAlert();
+    toggleAddNew();
 });
 
 brandSelect.addEventListener('change', filterEvent);

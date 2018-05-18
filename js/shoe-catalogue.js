@@ -4,17 +4,17 @@ function ShoeCatalogue(storedData, storedTrolley) {
     var trolleyTotal = 0;
     var availableShoes = [
         // Adidas
-        {id:1, brand: "Adidas", colour: "Black", price: 449.00, size: 4, qty: 12},
-        {id:2, brand: "Adidas", colour: "White", price: 349.00, size: 6, qty: 12},
-        {id:3, brand: "Adidas", colour: "Blue", price: 549.00, size: 7, qty: 12},
+        { id: 1, brand: "Adidas", colour: "Black", price: 449.00, size: 4, qty: 12 },
+        { id: 2, brand: "Adidas", colour: "White", price: 349.00, size: 6, qty: 12 },
+        { id: 3, brand: "Adidas", colour: "Blue", price: 549.00, size: 7, qty: 12 },
         // Nike
-        {id:4, brand: "Nike", colour: "Black", price: 449.00, size: 4, qty: 12},
-        {id:5, brand: "Nike", colour: "White", price: 349.00, size: 6, qty: 12},
-        {id:6, brand: "Nike", colour: "Blue", price: 549.00, size: 7, qty: 12},
+        { id: 4, brand: "Nike", colour: "Black", price: 449.00, size: 4, qty: 12 },
+        { id: 5, brand: "Nike", colour: "White", price: 349.00, size: 6, qty: 12 },
+        { id: 6, brand: "Nike", colour: "Blue", price: 549.00, size: 7, qty: 12 },
         // Reebok
-        {id:7, brand: "Reebok", colour: "Black", price: 499.00, size: 4, qty: 12},
-        {id:8, brand: "Reebok", colour: "White", price: 399.00, size: 5, qty: 12},
-        {id:9, brand: "Reebok", colour: "Blue", price: 599.00, size: 7, qty: 12},
+        { id: 7, brand: "Reebok", colour: "Black", price: 499.00, size: 4, qty: 12 },
+        { id: 8, brand: "Reebok", colour: "White", price: 399.00, size: 5, qty: 12 },
+        { id: 9, brand: "Reebok", colour: "Blue", price: 599.00, size: 7, qty: 12 },
     ];
 
     if (storedData && storedData.length > 0) {
@@ -39,11 +39,11 @@ function ShoeCatalogue(storedData, storedTrolley) {
                 if (current.brand === brand && current.colour === color && current.size === size && current.price === price) {
                     current.qty = parseFloat(current.qty) + parseFloat(qty);
                     exists = true;
-                } 
+                }
             })
             // add to map if it doesnt exist
             if (!exists) {
-                let id = availableShoes.length +1;
+                let id = availableShoes.length + 1;
                 availableShoes.push({
                     id: id,
                     brand: brand,
@@ -65,37 +65,37 @@ function ShoeCatalogue(storedData, storedTrolley) {
         let exists = false;
 
         var updateItem = availableShoes.find(shoe => (shoe.id == id));
-        
 
-     if (updateItem.qty > 0) {
-        trolley.map(current => {
-            if (current.id == id) {
-                current.qty += 1;
-                exists = true;
+
+        if (updateItem.qty > 0) {
+            trolley.map(current => {
+                if (current.id == id) {
+                    current.qty += 1;
+                    exists = true;
+                }
+            })
+
+            if (!exists) {
+                trolley.push({
+                    id: id,
+                    brand: updateItem.brand,
+                    colour: updateItem.colour,
+                    size: updateItem.size,
+                    price: updateItem.price,
+                    qty: 1
+                });
             }
-        })
 
-        if (!exists){            
-            trolley.push({
-                id: id,
-                brand: updateItem.brand,
-                colour: updateItem.colour,
-                size: updateItem.size,
-                price: updateItem.price,
-                qty: 1
-            });
+            // update the shoe map
+            availableShoes.map(current => {
+                if (current.id == id) {
+                    current.qty = current.qty - 1;
+                }
+            })
+            return true;
         }
 
-        // update the shoe map
-        availableShoes.map(current => {
-            if (current.id == id) { 
-                current.qty = current.qty - 1;
-            } 
-        })
-        return true;
-     }
-     
-     return false;
+        return false;
     }
 
     function clearTrolley() {
@@ -112,9 +112,9 @@ function ShoeCatalogue(storedData, storedTrolley) {
         trolley = [];
     }
 
-    function getCartTotal() { 
+    function getCartTotal() {
         let subTotal = 0;
-        if(trolley.length > 0) {
+        if (trolley.length > 0) {
             subTotal = trolley.reduce((total, current) => (total + (current.price * current.qty)), 0);
         }
         return (trolleyTotal + subTotal).toFixed(2);
@@ -124,7 +124,7 @@ function ShoeCatalogue(storedData, storedTrolley) {
         return availableShoes;
     }
 
-    function getTrolley(){
+    function getTrolley() {
         return trolley;
     }
 
